@@ -82,7 +82,11 @@
     "globals"       : {
         "_": false,
         "App": true,
+        "Job": false,
+        "JobCollection": false,
         "Meteor": false,
+        "Mongo": false,
+        "Npm": false,
         "SimpleSchema": false
     }        // additional predefined global variables
 }

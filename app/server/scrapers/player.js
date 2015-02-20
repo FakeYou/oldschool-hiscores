@@ -2,13 +2,13 @@
 
 var xray = Meteor.npmRequire('x-ray');
 var Future = Npm.require('fibers/future');
-
+ 
 App.Scrapers.oldSchoolPlayer = function(url) {
   var future = new Future();
 
   xray(url)
-    .prepare('toNumber', toNumber)
-    .prepare('trim', trim)
+    .prepare('toNumber', _.toNumber)
+    .prepare('trim', String.prototype.trim)
     .prepare('trimUsername', trimUsername)
     .select({
       username: '#contentHiscores tr:nth-child(1) td b | trimUsername',
@@ -35,19 +35,6 @@ App.Scrapers.oldSchoolPlayer = function(url) {
 
   return future.wait();
 };
-
-function toNumber(string) {
-  string = string.replace(',', '');
-
-  return parseInt(string, 10);
-}
-
-function trim(string) {
-  string = string.replace('\n', '');
-  string = string.trim();
-
-  return string;
-}
 
 function trimUsername(string) {
   return string.replace('Personal scores for ', '');
