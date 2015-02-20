@@ -1,0 +1,12 @@
+{
+  "version": "0.0.0",
+  "jobs": {
+    "scrapers": {
+      "getPlayers": {
+        "retryAmount": 2,
+        "retryWait": 300000,
+        "repeatWait": 3600000
+      }
+    }
+  }
+}
