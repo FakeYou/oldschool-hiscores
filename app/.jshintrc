@@ -87,6 +87,7 @@
         "Meteor": false,
         "Mongo": false,
         "Npm": false,
+        "Router": false,
         "SimpleSchema": false
     }        // additional predefined global variables
 }

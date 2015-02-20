@@ -13,6 +13,10 @@ App.Scrapers.oldSchoolPlayers = function(url, pages) {
     .paginate(' #contentHiscores tbody tr:nth-child(2) td:nth-child(5) tr:nth-child(2) a[href]')
     .limit(pages)
     .run(function(err, players) {
+      players = _.map(players, function(player) {
+        return player.replace('�', ' ');
+      });
+
       if(err) {
         future.throw(err);
       }
