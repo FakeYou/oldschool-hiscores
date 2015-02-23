@@ -6,16 +6,36 @@
         "retryAmount": 2,
         "retryWait": 10000,
         "repeatWait": 600000,
-        "pages": 1
+        "pages": 1,
+        "urls": {
+          "normal": "http://services.runescape.com/m=hiscore_oldschool/overall.ws",
+          "ironman": "http://services.runescape.com/m=hiscore_oldschool_ironman/overall.ws",
+          "ultimate": "http://services.runescape.com/m=hiscore_oldschool_ultimate/overall.ws"
+        }
       },
       "getPlayer": {
         "retryAmount": 2,
         "retryWait": 5000,
-        "delay": 2000
+        "delay": 500,
+        "urls": {
+          "normal": "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws",
+          "ironman": "http://services.runescape.com/m=hiscore_oldschool_ironman/hiscorepersonal.ws",
+          "ultimate": "http://services.runescape.com/m=hiscore_oldschool_ultimate/hiscorepersonal.ws"
+        }
+      },
+      "updatePlayers": {
+        "retryAmount": 2,
+        "retryWait": 10000,
+        "repeatWait": 600000
       }
     }
   },
   "public": {
+    "modes": [
+      "normal",
+      "ironman",
+      "ultimate"
+    ],
     "skills": {
       "all": [
         "Overall",

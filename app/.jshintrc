@@ -85,6 +85,7 @@
         "Job": false,
         "JobCollection": false,
         "Meteor": false,
+        "moment": false,
         "Mongo": false,
         "Npm": false,
         "Router": false,

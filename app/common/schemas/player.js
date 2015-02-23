@@ -48,6 +48,10 @@ App.Schemas.Player = new SimpleSchema({
   'data.$.timestamp': {
     type: Date
   },
+  'data.$.mode': {
+    type: String,
+    allowedValues: App.settings.modes
+  },
   'data.$.skills': {
     type: [App.Schemas.Skill]
   }

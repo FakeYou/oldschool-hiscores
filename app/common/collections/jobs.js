@@ -6,9 +6,7 @@ if(Meteor.isServer) {
 
   App.Jobs.Scrapers.allow({
     admin: function() {
-      console.log(this.userId);
-
-      return (userId ? true : false);
+      return true;
     }
   });
 
