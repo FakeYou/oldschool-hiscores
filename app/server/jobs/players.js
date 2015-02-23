@@ -12,7 +12,7 @@ var oldJobs = App.Jobs.Scrapers.find({
 App.Jobs.Scrapers.cancelJobs(_.pluck(oldJobs, '_id'));
 
 Meteor.startup(function() {
-  var job = App.Jobs.Scrapers.createJob('getPlayers', { url: url, date: Date.now() });
+  var job = App.Jobs.Scrapers.createJob('getPlayers', { url: url });
 
   job
     .priority('low')
@@ -27,14 +27,44 @@ Meteor.startup(function() {
     .save();
 
   Job.processJobs('scrapers', 'getPlayers', function(job, cb) {
+    var url = job.data.url;
+    var usernames;
+
     try {
-      var players = App.Scrapers.oldSchoolPlayers(url, 1);
-      console.log(Date.now(), players);
-      job.done();
+      usernames = App.Scrapers.oldSchoolPlayers(url, App.settings.jobs.scrapers.getPlayers.pages);
     }
     catch(err) {
       job.fail(err.message);
+      return cb();
     }
+
+    _.each(usernames, function(username, i) {
+      var playerId;
+      var player = App.Collections.Players.findOne({ username: username });
+
+      if(!player) {
+        playerId = App.Collections.Players.insert({
+          username: username,
+          data: []
+        });
+        
+        console.log('insert', username, playerId);  
+      }
+      else {
+        playerId = player._id;
+      }
+
+      var job = App.Jobs.Scrapers.createJob('getPlayer', { playerId: playerId });
+      job.priority('normal')
+        .retry({
+          retries: App.settings.jobs.scrapers.getPlayer.retryAmount,
+          wait: App.settings.jobs.scrapers.getPlayer.retryWait,
+        })
+        .delay(App.settings.jobs.scrapers.getPlayer.delay * i)
+        .save();
+    });
+
+    job.done();
 
     cb();
   });

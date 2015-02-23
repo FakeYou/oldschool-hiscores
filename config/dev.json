@@ -4,9 +4,73 @@
     "scrapers": {
       "getPlayers": {
         "retryAmount": 2,
-        "retryWait": 1000,
-        "repeatWait": 5000
+        "retryWait": 10000,
+        "repeatWait": 600000,
+        "pages": 1
+      },
+      "getPlayer": {
+        "retryAmount": 2,
+        "retryWait": 5000,
+        "delay": 2000
       }
+    }
+  },
+  "public": {
+    "skills": {
+      "all": [
+        "Overall",
+        "Attack",
+        "Defence",
+        "Strength",
+        "Hitpoints",
+        "Ranged",
+        "Prayer",
+        "Magic",
+        "Cooking",
+        "Woodcutting",
+        "Fletching",
+        "Fishing",
+        "Firemaking",
+        "Crafting",
+        "Smithing",
+        "Mining",
+        "Herblore",
+        "Agility",
+        "Thieving",
+        "Slayer",
+        "Farming",
+        "Runecraft",
+        "Hunter",
+        "Construction"
+      ],
+      "free": [
+        "Overall",
+        "Attack",
+        "Defence",
+        "Strength",
+        "Hitpoints",
+        "Ranged",
+        "Prayer",
+        "Magic",
+        "Cooking",
+        "Woodcutting",
+        "Fishing",
+        "Firemaking",
+        "Crafting",
+        "Smithing",
+        "Mining",
+        "Runecraft"
+      ],
+      "member": [
+        "Fletching",
+        "Herblore",
+        "Agility",
+        "Thieving",
+        "Slayer",
+        "Farming",
+        "Hunter",
+        "Construction"
+      ]
     }
   }
 }

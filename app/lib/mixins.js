@@ -2,6 +2,6 @@
 
 _.mixin({
   parseNumber: function(string) {
-    return parseInt(string.replace(',', ''), 10);
+    return parseInt(string.replace(/,/g, ''), 10);
   }
 });

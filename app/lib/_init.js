@@ -7,6 +7,11 @@ if(Meteor.isServer && _.isEmpty(Meteor.settings)) {
 
 App.settings = Meteor.settings;
 
+_.each(_.keys(App.settings.public), function(key) {
+  App.settings[key] = App.settings.public[key];
+});
+delete App.settings.public;
+
 App.Schemas     = {};
 App.Collections = {};
 App.Scrapers    = {};
