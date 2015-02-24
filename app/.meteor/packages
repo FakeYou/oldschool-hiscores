@@ -13,3 +13,6 @@ meteorhacks:npm
 npm-container
 vsivsi:job-collection
 momentjs:moment
+d3js:d3
+twbs:bootstrap
+mrt:nprogress

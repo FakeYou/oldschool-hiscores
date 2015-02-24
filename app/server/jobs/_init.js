@@ -1,7 +1,7 @@
 'use strict';
 
 Meteor.startup(function() {
-  // remove previously scheduled 'getPlayers' jobs
+  // remove previously scheduled repeating jobs
   var oldJobs = App.Jobs.Scrapers.find({ 
     status: 'waiting',
     type: { $in: ['getPlayers', 'updatePlayers'] }

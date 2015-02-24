@@ -12,10 +12,11 @@ _.each(_.keys(App.settings.public), function(key) {
 });
 delete App.settings.public;
 
-App.Schemas     = {};
 App.Collections = {};
-App.Scrapers    = {};
+App.Controllers = {};
 App.Jobs        = {};
+App.Schemas     = {};
+App.Scrapers    = {};
 
 // Meteor.startup(function() {
 //   var url = 'http://services.runescape.com/m=hiscore_oldschool_ultimate/overall.ws';

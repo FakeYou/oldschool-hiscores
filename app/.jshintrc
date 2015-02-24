@@ -82,13 +82,18 @@
     "globals"       : {
         "_": false,
         "App": true,
+        "check": false,
         "Job": false,
         "JobCollection": false,
         "Meteor": false,
         "moment": false,
         "Mongo": false,
         "Npm": false,
+        "NProgress": false,
+        "RouteController": false,
         "Router": false,
-        "SimpleSchema": false
+        "SimpleSchema": false,
+        "Template": false,
+        "UI": false
     }        // additional predefined global variables
 }

@@ -1,0 +1,32 @@
+<template name="playersSingle">
+  {{log latestData}}
+
+  <h1>{{player.username}}</h1>
+  <small class="text-muted">{{player._id}}</small>
+
+  <p>
+    <a href="{{pathFor route='players.index'}}">Back to hiscores</a>
+  </p>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Skill</th>
+        <th>Rank</th>
+        <th>Level</th>
+        <th>Experience</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each latestData.skills}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{rank}}</td>
+          <td>{{level}}</td>
+          <td>{{xp}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+</template>
