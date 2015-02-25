@@ -15,8 +15,10 @@ delete App.settings.public;
 App.Collections = {};
 App.Controllers = {};
 App.Jobs        = {};
+App.Models      = {};
 App.Schemas     = {};
 App.Scrapers    = {};
+App.Match       = {};
 
 // Meteor.startup(function() {
 //   var url = 'http://services.runescape.com/m=hiscore_oldschool_ultimate/overall.ws';

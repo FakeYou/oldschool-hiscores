@@ -61,6 +61,7 @@ tracker@1.0.5
 twbs:bootstrap@3.3.2
 ui@1.0.5
 underscore@1.0.2
+underscorestring:underscore.string@3.0.3
 url@1.0.3
 vsivsi:job-collection@0.0.18
 webapp@1.1.6

@@ -1,25 +1,39 @@
 <template name="playersIndex">
-  <h1>Overall hiscores</h1>
+  <h2>Overall hiscores</h2>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Level</th>
-        <th>Experience</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each players}}
-        <tr>
-          <td>{{rank}}</td>
-          <td><a href="{{pathFor route='players.single' data=this}}">{{username}}</a></td>
-          <td>{{level}}</td>
-          <td>{{xp}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each players}}
+            <tr>
+              {{#with skill params.skillname}}
+                <td>{{formatNumber rank}}</td>
+                <td><a href="{{pathFor route='players.single' data=..}}">{{../username}}</a></td>
+                <td>{{formatNumber level}}</td>
+                <td>{{formatNumber xp}}</td>
+              {{/with}}
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-2">
+      <h3>Skills</h3>
+      <ul class="list-unstyled">
+        {{#each skills 'all'}}
+          <li><a href="{{pathFor route='players.index' skillname=this}}">{{this}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 
 </template>

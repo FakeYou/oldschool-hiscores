@@ -14,27 +14,36 @@ Job.processJobs('scrapers', 'getPlayers', function(job, cb) {
   }
 
   _.each(usernames, function(username, i) {
-    var playerId;
     var player = App.Collections.Players.findOne({ username: username });
+
+    var allowedPlayers = [
+      'Ironwyn',
+      'Perm Iron',
+      'MRC',
+      'No Bank',
+      'UIM Torwent',
+      'BathSalts420',
+      'Lowlander',
+      'f0od',
+      'Lord Ironman',
+      'TellMeToFish'
+    ];
+
+    if(!_.contains(allowedPlayers, username)) {
+      return;
+    }
 
     // if the player doesn't exists then create a new entry
     if(!player) {
-      playerId = App.Collections.Players.insert({
-        username: username,
-        data: []
-      });
-      
-      console.info('insert player', username, playerId);  
+      App.Jobs.Scrapers.createJob('insertPlayer', { username: username, mode: mode })
+        .priority('normal')
+        .retry({
+          retries: App.settings.jobs.scrapers.insertPlayer.retryAmount,
+          wait: App.settings.jobs.scrapers.insertPlayer.retryWait,
+        })
+        .delay(App.settings.jobs.scrapers.insertPlayer.delay * i)
+        .save();
     }
-
-    // var job = App.Jobs.Scrapers.createJob('getPlayer', { playerId: playerId });
-    // job.priority('normal')
-    //   .retry({
-    //     retries: App.settings.jobs.scrapers.getPlayer.retryAmount,
-    //     wait: App.settings.jobs.scrapers.getPlayer.retryWait,
-    //   })
-    //   .delay(App.settings.jobs.scrapers.getPlayer.delay * i)
-    //   .save();
   });
 
   job.done();

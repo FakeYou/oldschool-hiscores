@@ -22,25 +22,18 @@ Job.processJobs('scrapers', 'updatePlayers', function(job, cb) {
       return;
     }
 
-    // get the timestamp of the newest update
-    var newestUpdate = _.chain(player.data)
-      .pluck('timestamp')
-      .sort()
-      .last()
-      .value();
-
     // if the newestUpdate + 1 hour is later than now then we don't want to update yet
-    if(moment(newestUpdate).add(1, 'hour').isAfter(moment())) {
-      return;      
-    }
+    // if(moment(player.updatedAt).add(1, 'hour').isAfter(moment())) {
+    //   return;      
+    // }
 
-    App.Jobs.Scrapers.createJob('getPlayer', { playerId: player._id, mode: mode })
-      .priority('normal')
+    App.Jobs.Scrapers.createJob('updatePlayer', { playerId: player._id, mode: mode })
+      .priority('critical')
       .retry({
-        retries: App.settings.jobs.scrapers.getPlayer.retryAmount,
-        wait: App.settings.jobs.scrapers.getPlayer.retryWait,
+        retries: App.settings.jobs.scrapers.updatePlayer.retryAmount,
+        wait: App.settings.jobs.scrapers.updatePlayer.retryWait,
       })
-      .delay(App.settings.jobs.scrapers.getPlayer.delay * i)
+      .delay(App.settings.jobs.scrapers.updatePlayer.delay * i)
       .save();
   });
 

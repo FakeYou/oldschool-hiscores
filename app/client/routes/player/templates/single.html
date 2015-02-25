@@ -1,7 +1,5 @@
 <template name="playersSingle">
-  {{log latestData}}
-
-  <h1>{{player.username}}</h1>
+  <h2>{{player.username}}</h2>
   <small class="text-muted">{{player._id}}</small>
 
   <p>
@@ -18,12 +16,12 @@
       </tr>
     </thead>
     <tbody>
-      {{#each latestData.skills}}
+      {{#each player.newestHiscores.skills}}
         <tr>
           <td>{{name}}</td>
-          <td>{{rank}}</td>
-          <td>{{level}}</td>
-          <td>{{xp}}</td>
+          <td>{{formatNumber rank}}</td>
+          <td>{{formatNumber level}}</td>
+          <td>{{formatNumber xp}}</td>
         </tr>
       {{/each}}
     </tbody>

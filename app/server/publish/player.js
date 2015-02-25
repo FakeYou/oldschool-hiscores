@@ -5,5 +5,7 @@ Meteor.publish('player', function(username) {
 
   var filter = new RegExp('^' + username + '$', 'i');
 
-  return App.Collections.Players.find({ username: filter });
+  return App.Collections.Players.find({ username: filter }, {
+    fields: { changes: 0, oldestHiscores: 0 }
+  });
 });

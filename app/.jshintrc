@@ -85,6 +85,7 @@
         "check": false,
         "Job": false,
         "JobCollection": false,
+        "Match": false,
         "Meteor": false,
         "moment": false,
         "Mongo": false,
@@ -92,6 +93,7 @@
         "NProgress": false,
         "RouteController": false,
         "Router": false,
+        "s": false,
         "SimpleSchema": false,
         "Template": false,
         "UI": false

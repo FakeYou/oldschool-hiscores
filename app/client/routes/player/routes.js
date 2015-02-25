@@ -1,43 +1,35 @@
 'use strict';
 
-Router.route('/players', function() {
+Router.route('/players/:skillname?', function() {
   NProgress.start();
   this.subscribe('players').wait();
   this.layout('layout');
+
+  var skillname = this.params.skillname || 'Overall';
+  this.params.skillname = skillname;
 
   if(this.ready()) {
     var data = function() {
       var players = App.Collections.Players.find().fetch();
 
       players = _.sortBy(players, function(player) {
-        var skill = _.chain(player.data)
-          .sortBy(function(data) { return data.timestamp; })
-          .pluck('skills')
-          .last()
-          .findWhere({ name: 'Overall' })
-          .value();
-
-        console.log(skill);
-
-        if(_.isUndefined(skill)) {
-          return Infinity;
-        }
-        else {
-          return skill.rank;
-        }
+        return _.findWhere(player.newestHiscores.skills, { name: skillname }).rank;
       });
 
       return {
         players: players
-      }
+      };
     };
 
     this.render('playersIndex', { data: data });
     NProgress.done();
   }
+  else {
+    this.render('loading');
+  }
 }, { name: 'players.index' });
 
-Router.route('/players/:username', function() {
+Router.route('/player/:username', function() {
   var username = this.params.username;
 
   NProgress.start();
@@ -55,6 +47,6 @@ Router.route('/players/:username', function() {
     NProgress.done();
   }
   else {
-    console.log('loading');
+    this.render('loading');
   }
 }, { name: 'players.single' });

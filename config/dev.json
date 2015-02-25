@@ -13,8 +13,8 @@
           "ultimate": "http://services.runescape.com/m=hiscore_oldschool_ultimate/overall.ws"
         }
       },
-      "getPlayer": {
-        "retryAmount": 2,
+      "insertPlayer": {
+        "retryAmount": 4,
         "retryWait": 5000,
         "delay": 500,
         "urls": {
@@ -27,6 +27,16 @@
         "retryAmount": 2,
         "retryWait": 10000,
         "repeatWait": 600000
+      },
+      "updatePlayer": {
+        "retryAmount": 2,
+        "retryWait": 5000,
+        "delay": 500,
+        "urls": {
+          "normal": "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws",
+          "ironman": "http://services.runescape.com/m=hiscore_oldschool_ironman/hiscorepersonal.ws",
+          "ultimate": "http://services.runescape.com/m=hiscore_oldschool_ultimate/hiscorepersonal.ws"
+        }
       }
     }
   },
