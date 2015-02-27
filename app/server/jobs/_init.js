@@ -1,10 +1,9 @@
 'use strict';
 
 Meteor.startup(function() {
-  // remove previously scheduled repeating jobs
+  // cancel all waiting jobs
   var oldJobs = App.Jobs.Scrapers.find({ 
-    status: 'waiting',
-    type: { $in: ['getPlayers', 'updatePlayers'] }
+    status: 'waiting'
   }, { fields: { _id: 1 }}).fetch();
 
   if(oldJobs.length) {

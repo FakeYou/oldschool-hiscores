@@ -12,6 +12,10 @@ UI.registerHelper('skills', function(type) {
   return App.settings.skills[type];
 });
 
+UI.registerHelper('modes', function() {
+  return App.settings.modes;
+});
+
 UI.registerHelper('params', function() {
   return Router.current().params;
 });

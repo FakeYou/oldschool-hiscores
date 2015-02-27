@@ -1,10 +1,6 @@
 'use strict';
 
-var querystring = Npm.require('querystring');
-
 Job.processJobs('scrapers', 'updatePlayer', function(job, cb) {
-  console.log('updatePlayer', job.data);
-
   var data;
   var player = App.Collections.Players.findOne({ _id: job.data.playerId });
   var mode = job.data.mode;
@@ -14,29 +10,40 @@ Job.processJobs('scrapers', 'updatePlayer', function(job, cb) {
     return cb();    
   }
 
-  var url = App.settings.jobs.scrapers.updatePlayer.urls[mode] + '?' + querystring.stringify({ user1: player.username });
+  // don't update players that are members
+  if(player.member) {
+    job.done();
+    return cb();
+  }
 
   try {
-    data = App.Scrapers.oldSchoolPlayer(url);
+    data = App.Scrapers.oldSchoolPlayerLite(player.username, mode);
   }
   catch(err) {
     job.fail(err.message);
     return cb();
   }
 
-  var changes = player.getSkillChanges(player.newestHiscores.skills, data.skills);
+  var changes = player.getSkillChanges(player.newestHiscores.skills, data);
 
   // we only need to update if there changes
   if(changes.length > 0) {
     var hiscores = {
       timestamp: new Date(),
-      skills: data.skills
+      skills: data
     };
-    
-    App.Collections.Players.update({ _id: player._id }, {
-      $set: { newestHiscores: hiscores },
-      $push: { skillChanges: { $each: changes } }
-    });
+
+    // don't keep update for people who became member
+    player.newestHiscores = hiscores;
+    if(!player.isMember()) {
+      App.Collections.Players.update({ _id: player._id }, {
+        $set: { newestHiscores: hiscores },
+        $push: { skillChanges: { $each: changes } }
+      });
+    }
+    else {
+      App.Collections.Players.update({ _id: player._id}, { $set: { member: true }});
+    }
   }
 
   job.done();

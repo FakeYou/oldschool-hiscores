@@ -69,6 +69,10 @@ App.Schemas.Player = new SimpleSchema({
     min: 3,
     max: 12
   },
+  member: {
+    type: Boolean,
+    defaultValue: false
+  },
   createdAt: {
     type: Date,
     denyUpdate: true,

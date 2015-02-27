@@ -1,16 +1,17 @@
 'use strict';
 
-var querystring = Npm.require('querystring');
-
 Job.processJobs('scrapers', 'insertPlayer', function(job, cb) {
   var data;
   var username = job.data.username;
   var mode = job.data.mode;
 
-  var url = App.settings.jobs.scrapers.insertPlayer.urls[mode] + '?' + querystring.stringify({ user1: username });
+  if(App.Collections.Players.findOne({ username: username })) {
+    job.fail('player already exists');
+    return cb();
+  }
 
   try {
-    data = App.Scrapers.oldSchoolPlayer(url);
+    data = App.Scrapers.oldSchoolPlayerLite(username, mode);
   }
   catch(err) {
     job.fail(err.message);
@@ -19,18 +20,34 @@ Job.processJobs('scrapers', 'insertPlayer', function(job, cb) {
 
   var hiscores = {
     timestamp: new Date(),
-    skills: data.skills
+    skills: _.clone(data)
   };
 
-  var player = new App.Models.Player({
-    username: data.username,
+  var doc = App.Schemas.Player.clean({
+    username: username,
+    member: false,
     oldestHiscores: hiscores,
     newestHiscores: hiscores,
     skillChanges: []
+  }, {
+    extendAutoValueContext: { isInsert: true }
   });
 
-  var id = App.Collections.Players.insert(player);
-  console.log('insert', player.username, id);  
+  var context = App.Schemas.Player.newContext();
+  var isValid = context.validate(doc);
+
+  if(!isValid) {
+    console.error(context.invalidKeys());
+    job.fail();
+    return cb();
+  }
+
+  var player = new App.Models.Player(doc);
+
+  if(!player.isMember()) {
+    var id = App.Collections.Players.insert(player);
+    console.log('insert', player.username, id);  
+  }
 
   job.done();
 

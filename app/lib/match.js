@@ -14,3 +14,8 @@ App.Match.free = Match.Where(function(n) {
 App.Match.member = Match.Where(function(n) {
   return _.contains(App.settings.skills.member, n);
 });
+
+// Match any mode that is defined in settings
+App.Match.modes = Match.Where(function(n) {
+  return _.contains(App.settings.modes, n);
+});

@@ -70,5 +70,25 @@ _.extend(App.Models.Player.prototype, {
     });
 
     return skill;
+  },
+
+  isMember: function() {
+    var memberSkills = App.settings.skills.member;
+    var member = false;
+
+    _.each(memberSkills, function(skillname) {
+      var skill = _.findWhere(this.newestHiscores.skills, { name: skillname });
+
+      if(_.isUndefined(skill)) {
+        console.log(skillname, this.username);
+        return;
+      }
+
+      if(skill.xp > 0 || skill.level > 1) {
+        member = true;
+      }
+    }, this);
+
+    return member;
   }
 });

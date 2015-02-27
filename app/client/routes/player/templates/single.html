@@ -16,14 +16,16 @@
       </tr>
     </thead>
     <tbody>
-      {{#each player.newestHiscores.skills}}
-        <tr>
-          <td>{{name}}</td>
-          <td>{{formatNumber rank}}</td>
-          <td>{{formatNumber level}}</td>
-          <td>{{formatNumber xp}}</td>
-        </tr>
-      {{/each}}
+      {{#with player}}
+        {{#each freeHiscores}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{formatNumber rank}}</td>
+            <td>{{formatNumber level}}</td>
+            <td>{{formatNumber xp}}</td>
+          </tr>
+        {{/each}}
+      {{/with}}
     </tbody>
   </table>
 

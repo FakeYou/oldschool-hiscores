@@ -1,5 +1,5 @@
 <template name="playersIndex">
-  <h2>Overall hiscores</h2>
+  <h2>{{params.skillname}} hiscores</h2>
 
   <div class="row">
     <div class="col-md-10">
@@ -29,7 +29,7 @@
     <div class="col-md-2">
       <h3>Skills</h3>
       <ul class="list-unstyled">
-        {{#each skills 'all'}}
+        {{#each skills 'free'}}
           <li><a href="{{pathFor route='players.index' skillname=this}}">{{this}}</a></li>
         {{/each}}
       </ul>

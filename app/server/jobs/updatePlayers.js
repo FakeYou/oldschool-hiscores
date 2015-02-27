@@ -28,7 +28,7 @@ Job.processJobs('scrapers', 'updatePlayers', function(job, cb) {
     // }
 
     App.Jobs.Scrapers.createJob('updatePlayer', { playerId: player._id, mode: mode })
-      .priority('critical')
+      .priority('low')
       .retry({
         retries: App.settings.jobs.scrapers.updatePlayer.retryAmount,
         wait: App.settings.jobs.scrapers.updatePlayer.retryWait,
