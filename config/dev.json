@@ -5,7 +5,7 @@
       "getPlayers": {
         "retryAmount": 2,
         "retryWait": 10000,
-        "repeatWait": 600000,
+        "repeatWait": 1200000,
         "pages": 200
       },
       "insertPlayer": {
@@ -16,7 +16,7 @@
       "updatePlayers": {
         "retryAmount": 2,
         "retryWait": 10000,
-        "repeatWait": 600000
+        "repeatWait": 1200000
       },
       "updatePlayer": {
         "retryAmount": 2,

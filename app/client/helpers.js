@@ -2,6 +2,11 @@
 
 UI.registerHelper('log', console.log.bind(console));
 
+UI.registerHelper('session', function(key) {
+  console.log(Session.get(key));
+  return Session.get(key);
+});
+
 UI.registerHelper('formatNumber', function(number) {
   return s.numberFormat(number);
 });

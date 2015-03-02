@@ -1,22 +1,28 @@
 <template name="playersSingle">
-  <h2>{{player.username}}</h2>
-  <small class="text-muted">{{player._id}}</small>
+  {{#with player}}
+    <h2>{{username}}</h2>
+    <small class="text-muted">{{_id}}</small>
 
-  <p>
-    <a href="{{pathFor route='players.index'}}">Back to hiscores</a>
-  </p>
+    <p>
+      {{#unless session 'updatePlayerError'}}
+        <button class="update-player btn pull-right">Update now</button>
+      {{else}}
+        <button class="update-player btn btn-danger pull-right" disabled>Something went wrong</button>
+      {{/unless}}
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Skill</th>
-        <th>Rank</th>
-        <th>Level</th>
-        <th>Experience</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#with player}}
+      <a href="{{pathFor route='players.index'}}">Back to hiscores</a>
+    </p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Rank</th>
+          <th>Level</th>
+          <th>Experience</th>
+        </tr>
+      </thead>
+      <tbody>
         {{#each freeHiscores}}
           <tr>
             <td>{{name}}</td>
@@ -25,8 +31,7 @@
             <td>{{formatNumber xp}}</td>
           </tr>
         {{/each}}
-      {{/with}}
-    </tbody>
-  </table>
-
+      </tbody>
+    </table>
+  {{/with}}
 </template>

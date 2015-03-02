@@ -1,9 +1,20 @@
 'use strict';
 
-Template.playersSingle.helpers({
-  freeHiscores: function() {
-    return _.filter(this.newestHiscores.skills, function(hiscore) {
-      return _.contains(App.settings.skills.free, hiscore.name);
+Template.playersSingle.events({
+  'click .update-player': function updatePlayer(e) {
+    var $target = $(e.target);
+    $target.prop('disabled', true);
+
+    Meteor.call('updatePlayer', this._id, 'ultimate', function(err) {
+      if(err) {
+        Session.set('updatePlayerError', err.message);
+      }
     });
+
+    setTimeout(function() {
+      $target.prop('disabled', false);
+    }, 1500);
+
+    return false;
   }
 });

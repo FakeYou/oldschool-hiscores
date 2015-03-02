@@ -31,6 +31,7 @@ Router.route('/players/:skillname?', function() {
 
 Router.route('/player/:username', function() {
   var username = this.params.username;
+  Session.set('updatePlayerError', false);
 
   NProgress.start();
   this.subscribe('player', username).wait();
